@@ -149,31 +149,21 @@ class MainWindow(QMainWindow):
             self.plot_graph()
 
     def plot_graph(self) -> None:
-        """
-        מנקה את הגרף, מציירת עליו גרף זמני ופשוט לדוגמה, ומעדכנת את התצוגה.
-        """
-        self.ax.clear()
+        self.figure.clear()
+        ax = self.figure.add_subplot(111)
 
-        # נתונים זמניים ופשוטים לדוגמה (ללא ספריות נוספות כמו numpy)
-        x_sample = [1, 2, 3, 4, 5]
-        y_sample = [12, 19, 14, 27, 22]
+        # ציור גרף נקודות (scatter) עם גודל נקודה 1
+        ax.scatter(self.temperatures, self.revenues, s=1)
 
-        self.ax.plot(
-            x_sample,
-            y_sample,
-            marker="o",
-            linestyle="-",
-            color="#2563eb",
-            linewidth=2,
-            label="נתוני דוגמה",
-        )
-        self.ax.set_title("תצוגת גרף לדוגמה", fontsize=12, pad=10)
-        self.ax.set_xlabel("ציר X")
-        self.ax.set_ylabel("ציר Y")
-        self.ax.grid(True, linestyle="--", alpha=0.6)
-        self.ax.legend()
+        # כותרות לצירים ולגרף
+        ax.set_title("Ice Cream Revenue vs. Temperature")
+        ax.set_xlabel("Temperature")
+        ax.set_ylabel("Revenue ($)")
 
-        # עדכון התצוגה
+        # העפת הקו העליון והימני של המסגרת
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+
         self.canvas.draw()
 
     def show_about_dialog(self) -> None:
