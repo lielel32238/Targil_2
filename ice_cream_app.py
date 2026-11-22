@@ -21,7 +21,6 @@ from matplotlib.figure import Figure
 
 
 class AboutDialog(QDialog):
-    """חלון אודות (About) מעוצב הכולל פרטי מפתח וקישור ל-GitHub."""
 
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
@@ -72,12 +71,14 @@ class AboutDialog(QDialog):
 
 
 class MainWindow(QMainWindow):
-    """החלון הראשי של האפליקציה."""
 
     def __init__(self) -> None:
         super().__init__()
         self.setWindowTitle("אפליקציית ניתוח נתונים - PySide6 & Matplotlib")
         self.resize(850, 650)
+
+        self.temperatures = []
+        self.revenues = []
 
         # וידג'ט מרכזי ופריסה ראשית
         central_widget = QWidget(self)
@@ -133,13 +134,19 @@ class MainWindow(QMainWindow):
 
         if file_path:
             self.lbl_file_path.setText(f"קובץ שנבחר: {file_path}")
+            # איפוס הרשימות למקרה שטוענים קובץ חדש
+            self.temperatures = []
+            self.revenues = []
+            with open(file_path, 'r', encoding='utf-8') as file:
+                lines = file.readlines()
 
-            # =========================================================================
-            # TODO: קריאת קובץ ה-CSV
-            # 1. פתח את הקובץ באמצעות הנתיב שהתקבל (file_path).
-            # 2. סרוק את שורות הנתונים לתוך שתי רשימות נפרדות (לדוגמה: x_data ו-y_data).
-            # 3. קרא למתודת הציור (self.plot_graph()) והעבר לה את הנתונים שנאספו.
-            # =========================================================================
+                # מדלגים על שורת הכותרות (שורה 0)
+                for line in lines[1:]:
+                    parts = line.strip().split(',')
+                    self.temperatures.append(float(parts[0]))
+                    self.revenues.append(float(parts[1]))
+
+            self.plot_graph()
 
     def plot_graph(self) -> None:
         """
