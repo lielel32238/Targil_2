@@ -1,4 +1,5 @@
 import sys
+import numpy as np
 
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
@@ -153,7 +154,23 @@ class MainWindow(QMainWindow):
         ax = self.figure.add_subplot(111)
 
         # ציור גרף נקודות (scatter) עם גודל נקודה 1
-        ax.scatter(self.temperatures, self.revenues, s=1)
+        ax.scatter(self.temperatures, self.revenues, s=1, label="נתונים")
+
+        # חישוב ושרטוט קו מגמה ישר אם קיימים נתונים
+        if len(self.temperatures) > 1:
+            # 1. מציאת השיפוע (m) ונקודת החיתוך (b) בעזרת np.polyfit מדרגה 1
+            m, b = np.polyfit(self.temperatures, self.revenues, 1)
+
+            # חישוב ערכי Y של קו המגמה עבור ערכי הטמפרטורה
+            x_vals = np.array(self.temperatures)
+            y_trend = m * x_vals + b
+
+            # 2. שרטוט קו המגמה מעל ה-scatter בצבע בולט (אדום)
+            # 3. הצגת משוואת הקו (y = mx + b) מעוגלת ל-2 ספרות אחרי הנקודה במקרא
+            sign = "+" if b >= 0 else "-"
+            eq_text = f"y = {m:.2f}x {sign} {abs(b):.2f}"
+            ax.plot(x_vals, y_trend, color="red", linewidth=2, label=f"קו מגמה: {eq_text}")
+            ax.legend()
 
         # כותרות לצירים ולגרף
         ax.set_title("Ice Cream Revenue vs. Temperature")
