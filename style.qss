@@ -1,0 +1,108 @@
+/* style.qss - עיצוב נקי ומודרני לאפליקציה */
+
+QWidget {
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 13px;
+    color: #1f2937;
+    background-color: #f8fafc;
+}
+
+/* חלון ראשי */
+QMainWindow {
+    background-color: #f8fafc;
+}
+
+/* סרגל כפתורי פעולה עליון */
+QFrame#toolbar_frame {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 6px;
+}
+
+/* סגנון כפתורים כללי */
+QPushButton {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: 600;
+}
+
+QPushButton:hover {
+    background-color: #1d4ed8;
+}
+
+QPushButton:pressed {
+    background-color: #1e40af;
+}
+
+/* כפתור About ייעודי */
+QPushButton#about_button {
+    background-color: #475569;
+}
+
+QPushButton#about_button:hover {
+    background-color: #334155;
+}
+
+QPushButton#about_button:pressed {
+    background-color: #1e293b;
+}
+
+/* תווית הצגת נתיב הקובץ */
+QLabel#file_path_label {
+    color: #64748b;
+    font-size: 12px;
+}
+
+/* סרגל הכלים של Matplotlib */
+QToolBar {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 4px;
+    spacing: 4px;
+}
+
+QToolButton {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+QToolButton:hover {
+    background-color: #f1f5f9;
+    border: 1px solid #cbd5e1;
+}
+
+/* חלון אודות (About Dialog) */
+QDialog {
+    background-color: #ffffff;
+}
+
+QFrame#about_card {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+QLabel#about_title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0f172a;
+}
+
+QLabel#about_info {
+    font-size: 13px;
+    color: #334155;
+    line-height: 1.5;
+}
+
+QLabel#about_link {
+    font-size: 13px;
+    color: #2563eb;
+}
